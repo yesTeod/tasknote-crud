@@ -87,7 +87,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <h1>CRUD Application</h1>
+      <h1>Record Saving App</h1>
       
       <div className="form-container">
         <h2>{editingId ? 'Edit Record' : 'Add New Record'}</h2>

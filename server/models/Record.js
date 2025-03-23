@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const RecordSchema = new mongoose.Schema({
   name: {
@@ -11,4 +11,6 @@ const RecordSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Record', RecordSchema);
+const Record = mongoose.model("Record", RecordSchema);
+
+export default Record;

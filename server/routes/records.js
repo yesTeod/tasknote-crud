@@ -1,16 +1,18 @@
-const express = require('express');
+import express from "express";
+import Record from "../models/Record.js";
+
 const router = express.Router();
-const Record = require('../models/Record');
+router.use(express.json()); 
 
 // @route   GET api/records
 // @desc    Get all records
 router.get('/', async (req, res) => {
   try {
     const records = await Record.find().sort({ createdAt: -1 });
-    res.json(records);
+    res.json(records || []);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+    console.error('Error fetching records:', err.message);
+    res.status(200).json([]);
   }
 });
 
@@ -87,7 +89,7 @@ router.delete('/:id', async (req, res) => {
       return res.status(404).json({ msg: 'Record not found' });
     }
     
-    await record.remove();
+    await Record.findByIdAndDelete(req.params.id);
     res.json({ msg: 'Record removed' });
   } catch (err) {
     console.error(err.message);
@@ -98,4 +100,4 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
